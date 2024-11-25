@@ -27,7 +27,15 @@ def main():
                     continue
                 
             case "2":
-                pass
+                try:
+                    book_id = int(input("Введите Id книги: ").strip())
+                    if library.remove_book(book_id):
+                        print("Книга удалена.")
+                    else:
+                        print("Книга не найдена.")
+                except ValueError:
+                    print("Некорректный Id книги.")
+                    continue
             case "3":
                 pass
             case "4":

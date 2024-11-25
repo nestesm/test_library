@@ -4,7 +4,7 @@ from book import Book, BookStatus
 
 class Library:
     """ 
-        Класс описывает возможное взаимодействие с библиотекой.
+        Класс описывает взаимодействие с библиотекой.
     """
     def __init__(self, file_path: str = "data.json"):
         self.books: list[Book] = []
@@ -53,6 +53,17 @@ class Library:
         for book in self.books:
             if book_id == book.id:
                 book.status = status
+                self.save_data()
+                return True
+        return False
+    
+    def remove_book(self, book_id: int) -> bool:
+        """
+            Удаление книги из библиотеки и файла.
+        """
+        for book in self.books:
+            if book_id == book.id:
+                self.books.remove(book)
                 self.save_data()
                 return True
         return False
