@@ -69,8 +69,7 @@ def main():
                     book_id = int(input("Введите Id книги: ").strip())
                     status = input("Введите статус книги: ").strip()
                     if not library.update_book_status(book_id, status):
-                        print(f"Ошибка обновления статуса книги. Проверьте введенные данные - Id или статус.\n 
-                              Допустимые значения для статуса: {', '.join(BookStatus.list())}")
+                        print(f"Ошибка обновления статуса книги. Проверьте введенные данные - Id или статус.\n Допустимые значения для статуса: {', '.join(BookStatus.list())}")
                 except ValueError:
                     print("Некорректный Id книги.")
                     continue
