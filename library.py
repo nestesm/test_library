@@ -47,7 +47,7 @@ class Library:
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(self.file_path, "w", encoding="utf-8") as file:
             json.dump(
-                [repr(book) for book in self.books],  # Сохраняем список книг
+                [book.to_dict() for book in self.books],  # Сохраняем список книг
                 file,
                 sort_keys=True, # Сортируем ключи для читаемости
                 indent=4, # Форматируем JSON с отступами

@@ -102,14 +102,20 @@ class Book:
         """
         return f"Книга: {self.title}, автор: {self.author}, год издания: {self.year}, статус: {self.status}"
     
-    def __repr__(self):
+    def to_dict(self) -> dict[str, Any]:
         """
-            Возвращает строковое представление книги для отладки.
-
+            Преобразование объекта книги в словарь.
+            
             Returns:
-                str: Представление книги с ключевыми атрибутами.
+                dict[str, Any]: Словарь с данными книги.
         """
-        return f"{self._id}, {self.title}, {self.author}, {self.year}, {self._status}"
+        return {
+            "id": self.id,
+            "title": self.title,
+            "author": self.author,
+            "year": self.year,
+            "status": self.status.value
+        }
     
     @staticmethod
     def from_dict(data: dict[str, Any]) -> 'Book':
