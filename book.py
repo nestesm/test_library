@@ -90,7 +90,7 @@ class Book:
                 TypeError: Если тип аргумента не поддерживается.
         """
         if value not in BookStatus.list(): # Попытка конвертации строки в BookStatus
-            raise ValueError(f"Неверное значение для статуса книги. Допустимые значения: {', '.join(BookStatus.list())}}.")
+            raise ValueError(f"Неверное значение для статуса книги. Допустимые значения: {', '.join(BookStatus.list())}.")
         self._status = value
     
     def __str__(self) -> str:
