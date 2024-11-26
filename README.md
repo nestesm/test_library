@@ -85,7 +85,7 @@ python main.py
 Чтобы запустить тесты, выполните следующую команду:
 
 ```bash
-python -m unittest test_library.py
+python -m unittest test.py
 ```
 
 ## Архитектура
