@@ -28,7 +28,7 @@ class Library:
             Загрузка данных-книг из файла.
             
             Если файл отсутствует или содержит некорректные данные, список книг 
-            (`self.books`) будет пустым.   
+            (self.books) будет пустым.   
         """
         try:
             with open(self.file_path, "r", encoding="utf-8") as file:

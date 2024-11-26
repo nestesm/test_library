@@ -18,6 +18,8 @@ class BookStatus(Enum):
                 list[str]: Список значений статусов книги.
         """
         return list(map(lambda c: c.value, cls))
+    
+    
 
 class Book:
     """ 
@@ -89,7 +91,12 @@ class Book:
                 ValueError: Если передано некорректное строковое значение.
                 TypeError: Если тип аргумента не поддерживается.
         """
-        if value not in BookStatus.list(): # Попытка конвертации строки в BookStatus
+        if isinstance(value, str):
+            try:
+                value = BookStatus(value)  # Преобразуем строку в объект BookStatus
+            except ValueError:
+                raise ValueError(f"Неверное значение для статуса книги. Допустимые значения: {', '.join(BookStatus.list())}") 
+        if not isinstance(value, BookStatus):
             raise ValueError(f"Неверное значение для статуса книги. Допустимые значения: {', '.join(BookStatus.list())}.")
         self._status = value
     

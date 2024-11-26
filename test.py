@@ -29,7 +29,7 @@ class TestBook(unittest.TestCase):
         """Тест изменения статуса книги."""
         book = Book("1984", "Джордж Оруэлл", 1949)
         book.status = "выдана"
-        self.assertEqual(book.status, BookStatus.ISSUED.value)
+        self.assertEqual(book.status, BookStatus.ISSUED)
         with self.assertRaises(ValueError):
             book.status = "недоступна"  # Некорректное значение статуса
 
@@ -47,24 +47,31 @@ class TestBook(unittest.TestCase):
         self.assertEqual(book.title, "1984")
         self.assertEqual(book.author, "Джордж Оруэлл")
         self.assertEqual(book.year, 1949)
-        self.assertEqual(book.status, "в наличии")
-
+        self.assertEqual(book.status, BookStatus.AVAILABLE)
 
 class TestLibrary(unittest.TestCase):
-    """Тесты для класса Library."""
+    """
+        Тесты класса Library.
+    """
 
     def setUp(self):
-        """Создаём тестовую библиотеку перед каждым тестом."""
+        """
+            Создаём тестовую библиотеку перед каждым тестом.
+        """
         self.library = Library(file_path="test_data.json")
         self.library.books = []  # Очищаем библиотеку
 
     def tearDown(self):
-        """Удаляем тестовый файл после каждого теста."""
+        """
+            Удаляем тестовый файл после каждого теста.
+        """
         if Path(self.library.file_path).exists():
             os.remove(self.library.file_path)
 
     def test_add_book(self):
-        """Тест добавления книги в библиотеку."""
+        """
+            Тест добавления книги в библиотеку.
+        """
         book = self.library.add_book("Преступление и наказание", "Фёдор Достоевский", 1866)
         self.assertEqual(len(self.library.books), 1)
         self.assertEqual(self.library.books[0].title, "Преступление и наказание")
@@ -72,21 +79,27 @@ class TestLibrary(unittest.TestCase):
         self.assertEqual(self.library.books[0].year, 1866)
 
     def test_remove_book(self):
-        """Тест удаления книги из библиотеки."""
+        """
+            Тест удаления книги из библиотеки.
+        """
         book = self.library.add_book("Преступление и наказание", "Фёдор Достоевский", 1866)
         self.assertTrue(self.library.remove_book(book.id))
         self.assertEqual(len(self.library.books), 0)
         self.assertFalse(self.library.remove_book(999))  # Несуществующий ID
 
     def test_update_book_status(self):
-        """Тест изменения статуса книги."""
+        """
+            Тест изменения статуса книги.
+        """
         book = self.library.add_book("1984", "Джордж Оруэлл", 1949)
         self.assertTrue(self.library.update_book_status(book.id, "выдана"))
-        self.assertEqual(self.library.books[0].status, "выдана")
+        self.assertEqual(book.status, BookStatus.ISSUED)  # Проверяем объект Enum
         self.assertFalse(self.library.update_book_status(book.id, "недоступна"))  # Некорректный статус
-
+       
     def test_search_books(self):
-        """Тест поиска книг по полю."""
+        """
+            Тест поиска книг по полю.
+        """
         self.library.add_book("Преступление и наказание", "Фёдор Достоевский", 1866)
         self.library.add_book("Мастер и Маргарита", "Михаил Булгаков", 1966)
         results = self.library.search_books("булгаков", "author")
@@ -94,7 +107,9 @@ class TestLibrary(unittest.TestCase):
         self.assertEqual(results[0].author, "Михаил Булгаков")
 
     def test_save_and_load_data(self):
-        """Тест сохранения и загрузки данных."""
+        """
+            Тест сохранения и загрузки данных.
+        """
         self.library.add_book("1984", "Джордж Оруэлл", 1949)
         self.library.save_data()
         # Создаём новую библиотеку и загружаем данные
